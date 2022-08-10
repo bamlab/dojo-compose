@@ -10,9 +10,15 @@ Repository to store compose dojo
 - DOJO: STEP 5 - add a new android library module to the project
   - right click on the project and select "New" -> "Module"
   - ![dojo-step-5.png](dojo-step-5.png)
-  - replace the module build content by the following content: 
+  - replace the module build content by the following content:
     - `apply from: "$rootDir/gradle/baseFeature.gradle"`
-  - add some dependencies if needed 
+  - add some dependencies if needed
 - [optional] DOJO: STEP 6 - prepare some code in the module
-- DOJO: STEP 7 - Check it builds then push the code on main branch 
-- [mandatory] DOJO: STEP 8 - Have fun
+- DOJO: STEP 7 - Check it builds then push the code on main branch
+- [optional] DOJO: STEP 8 - On a other branch put expected result/ help / partial result
+- [mandatory] DOJO: STEP 9 - Have fun
+
+## Finalization when dojo workshop is finished (20 min first time then 5 min)
+
+- add a readme containing GIF of the result in the module
+- push the result on the main branch
