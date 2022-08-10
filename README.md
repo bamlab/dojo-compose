@@ -1,6 +1,8 @@
 # dojo-compose
 Repository to store compose dojo
 
+You can find board of compose dojos here: https://www.notion.so/m33/Dojo-Jetpack-Compose-472e1620b11c4e3d9eb336a07b06a9ef?p=71cda0280c9e4b319f51296a23ec7c8d&pm=s
+
 
 ## set up a dojo workshop (20 min first time then 5 min)
 
