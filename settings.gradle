@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Dojo Compose"
 include ':app'
 include ':onPressEffect'
-include ':mylibrary'
+include ':revealanimation'

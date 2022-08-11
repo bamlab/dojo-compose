@@ -1,5 +1,5 @@
 apply from: "$rootDir/gradle/baseFeature.gradle"
 
 android {
-    namespace 'bam.tech.dojo.compose.onPressEffect'
+    namespace 'bam.tech.dojo.compose.revealanimation'
 }

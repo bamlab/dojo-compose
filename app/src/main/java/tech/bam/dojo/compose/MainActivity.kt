@@ -14,6 +14,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tech.bam.dojo.onpresseffect.OnPressScreen
+import tech.bamlab.dojo.revealanimation.AnimatedVisibilityScreen
+import tech.bamlab.dojo.revealanimation.RevealAnimationScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,20 +29,30 @@ class MainActivity : ComponentActivity() {
             ) {
                 composable(Destination.HOME) {
                     Column(
-                        modifier = Modifier.fillMaxSize().padding(32.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(32.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(
                             16.dp,
                             Alignment.CenterVertically
                         )
                     ) {
-                        // DOJO: STEP 2 - Add a NavButton to navigate to the current dojo screen
+                        // DOJO: STEP 3 - Add a NavButton to navigate to the current dojo screen
                         NavButton(Destination.ON_PRESS_EFFECT, navController)
+                        NavButton(Destination.REVEAL_ANIMATION, navController)
+                        NavButton(Destination.ANIMATED_VISIBILITY, navController)
                     }
                 }
-                // DOJO: STEP 3 - Add deeplinkedComposable to the current dojo screen
+                // DOJO: STEP 4 - Add deeplinkedComposable to the current dojo screen
                 deeplinkedComposable(Destination.ON_PRESS_EFFECT) {
                     OnPressScreen()
+                }
+                deeplinkedComposable(Destination.REVEAL_ANIMATION) {
+                    RevealAnimationScreen()
+                }
+                deeplinkedComposable(Destination.ANIMATED_VISIBILITY) {
+                    AnimatedVisibilityScreen()
                 }
             }
         }
@@ -50,6 +62,8 @@ class MainActivity : ComponentActivity() {
 private object Destination {
     const val HOME = "HOME"
 
-    // DOJO: STEP 1 - Add a new destination for the current Dojo screen
+    // DOJO: STEP 2 - Add a new destination for the current Dojo screen
     const val ON_PRESS_EFFECT = "ON_PRESS_EFFECT"
+    const val REVEAL_ANIMATION = "REVEAL_ANIMATION"
+    const val ANIMATED_VISIBILITY = "ANIMATED_VISIBILITY"
 }

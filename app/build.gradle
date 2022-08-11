@@ -65,4 +65,5 @@ dependencies {
 
 
     implementation project(":onPressEffect")
+    implementation project(":revealanimation")
 }

@@ -6,15 +6,21 @@ You can find board of compose dojos here: https://www.notion.so/m33/Dojo-Jetpack
 
 ## set up a dojo workshop (20 min first time then 5 min)
 
-- Follow the "DOJO: STEP" 1 to 3 in the code
-- [optional] DOJO: STEP 4 - create a method to launch quickly the current dojo screen
-  - ![dojo-step-4.png](dojo-step-4.png)
-- DOJO: STEP 5 - add a new android library module to the project
+- DOJO: STEP 1 - add a new android library module to the project
   - right click on the project and select "New" -> "Module"
   - ![dojo-step-5.png](dojo-step-5.png)
   - replace the module build content by the following content:
     - `apply from: "$rootDir/gradle/baseFeature.gradle"`
+    - add namespace:
+      - ```
+        android {
+          namespace 'bam.tech.dojo.compose.onPressEffect'
+        }
+        ```
   - add some dependencies if needed
+- Follow the "DOJO: STEP" 2 to 4 in the code
+- [optional] DOJO: STEP 5 - create a method to launch quickly the current dojo screen
+  - ![dojo-step-4.png](dojo-step-4.png)
 - [optional] DOJO: STEP 6 - prepare some code in the module
 - DOJO: STEP 7 - Check it builds then push the code on main branch
 - [optional] DOJO: STEP 8 - On a other branch put expected result/ help / partial result
