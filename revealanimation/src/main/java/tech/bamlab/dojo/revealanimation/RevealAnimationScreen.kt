@@ -19,9 +19,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -37,7 +43,7 @@ fun RevealAnimationScreen() {
     var alpha by rememberSaveable { mutableStateOf(false) }
 
 
-    var tween by rememberSaveable { mutableStateOf(false) }
+    var tween by rememberSaveable { mutableStateOf(true) }
     var durationMillis by rememberSaveable { mutableStateOf(1000) }
     var delayMillis by rememberSaveable { mutableStateOf(0) }
     var dampingRatio by rememberSaveable { mutableStateOf(0.5f) } // 0 to 1
@@ -62,6 +68,7 @@ fun RevealAnimationScreen() {
         .clickable(
             remember { MutableInteractionSource() }, null
         ) { resetEffect += "a" }
+        .drawBehindRevealAnimation(resetEffect = resetEffect, animationSpec = animatedSpec)
     if (scale) baseModifier =
         baseModifier.scaleRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
     if (rotateX) baseModifier =
@@ -218,9 +225,44 @@ private fun Modifier.genericRevealAnimation(
             animationSpec = animationSpec
         )
     }
+
     this.graphicsLayer {
         graphicChange(this, animatedValue.value)
     }
+}
+
+private fun Modifier.drawBehindRevealAnimation(
+    initialValue: Float = 0f,
+    targetValue: Float = 1f,
+    animationSpec: AnimationSpec<Float> = tween(durationMillis = 1000),
+    resetEffect: Any? = null,
+) = composed {
+    val animatedValue = remember { Animatable(initialValue = initialValue) }
+    LaunchedEffect(resetEffect) {
+        animatedValue.snapTo(initialValue)
+        animatedValue.animateTo(
+            targetValue = targetValue,
+            animationSpec = animationSpec
+        )
+    }
+
+    var center by remember { mutableStateOf(IntOffset(0, 0)) }
+    var width by remember { mutableStateOf(0) }
+
+    this
+        .onGloballyPositioned {
+            center = it.size.center
+            width = it.size.width
+        }
+        .drawBehind {
+            val progression = animatedValue.value / targetValue
+            drawCircle(
+                center = Offset(center.x.toFloat(), center.y.toFloat()),
+                radius = width * 1.32f * progression,
+                color = Color.Black,
+                alpha = (1f - progression).coerceIn(0F, 1F),
+            )
+        }
 }
 
 @Preview(showBackground = true)
