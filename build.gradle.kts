@@ -7,3 +7,64 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
+
+tasks.register("createModule") {
+    // Argument for module name in camelCase
+    val templateModuleName =
+        project.properties["moduleName"]?.toString() ?: throw IllegalArgumentException("Module name is required")
+    val templateLowerCaseModuleName = templateModuleName.lowercase()
+
+    // Create a directory for the new module
+    val moduleDir = file(templateModuleName)
+    val srcMainDir = file("$templateModuleName/src/commonMain/kotlin/tech/bam/dojo/$templateLowerCaseModuleName")
+    val srcAndroidDir = file("$templateModuleName/src/androidMain/kotlin")
+
+    doLast {
+        // Step 2: Create module directory and basic structure
+        moduleDir.mkdirs()
+        srcMainDir.mkdirs()
+        srcAndroidDir.mkdirs()
+
+        // Step 3: Update settings.gradle.kts to include the new module
+        val settingsFile = file("settings.gradle.kts")
+        settingsFile.appendText("\ninclude(\":$templateModuleName\")")
+
+        // Step 4: Create build.gradle.kts in the module directory based on a template
+        val templateFile = file("template/template.build.gradle.kts")
+        val buildGradleFile = file("$templateModuleName/build.gradle.kts")
+        val templateText =
+            templateFile
+                .readText()
+                .replace("templateModuleName", templateModuleName)
+                .replace("templateLowerCaseModuleName", templateLowerCaseModuleName)
+        buildGradleFile.writeText(templateText)
+
+        // Step 5: Create commonMain source set with a Kotlin class
+        val templateClassName = "${templateModuleName}Screen"
+        val screenTemplateFile = file("template/template.Screen.kt")
+        val screenContent =
+            screenTemplateFile
+                .readText()
+                .replace("templateModuleName", templateModuleName)
+                .replace("templateLowerCaseModuleName", templateLowerCaseModuleName)
+                .replace("templateClassName", templateClassName)
+
+        val commonMainFile = file("$srcMainDir/$templateClassName.kt")
+        commonMainFile.writeText(screenContent)
+
+        // Step 6: Create androidMain source set with a Kotlin file for previews
+        val templatePreviewFile = file("template/template.Previews.kt")
+        val previewsContent =
+            templatePreviewFile
+                .readText()
+                .replace("templateModuleName", templateModuleName)
+                .replace("templateLowerCaseModuleName", templateLowerCaseModuleName)
+                .replace("templateClassName", templateClassName)
+
+        val previewsFile = file("$srcAndroidDir/Previews.kt")
+        previewsFile.writeText(previewsContent)
+    }
+}
+
+// How to invoke this task
+// ./gradlew createModule -PmoduleName=MyNewModule
