@@ -8,10 +8,13 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
+// How to invoke this task
+// ./gradlew createModule -PmoduleNameInCamelCase=MyNewModule
 tasks.register("createModule") {
     // Argument for module name in camelCase
     val templateModuleName =
-        project.properties["moduleName"]?.toString() ?: throw IllegalArgumentException("Module name is required")
+        project.properties["moduleNameInCamelCase"]?.toString()
+            ?: throw IllegalArgumentException("Module name is required")
     val templateLowerCaseModuleName = templateModuleName.lowercase()
 
     // Create a directory for the new module
@@ -91,6 +94,3 @@ tasks.register("createModule") {
         composeAppBuildFile.writeText(updatedComposeAppBuildText)
     }
 }
-
-// How to invoke this task
-// ./gradlew createModule -PmoduleName=MyNewModule

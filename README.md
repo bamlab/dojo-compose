@@ -5,9 +5,12 @@ You can find board of compose dojos here: https://www.notion.so/m33/Dojo-Jetpack
 
 ## set up a dojo workshop (20 min first time then 5 min)
 
-1. Create your module (add some dependencies if needed)
-2. Add your screen to the
-   file [screenList.kt](composeApp%2Fsrc%2FcommonMain%2Fkotlin%2Ftech%2Fbam%2Fdojo%2Fcompose%2FscreenList.kt)
+1. Create your module (add some dependencies if needed). Use the following
+   command to create a new module:
+
+```shell
+./gradlew createModule -PmoduleNameInCamelCase=MyNewModule
+```
 3. [optional] prepare some code in the module
 4. Check it builds then push the code on main branch 
 5. [optional] On a other branch put expected result/ help / partial result 
