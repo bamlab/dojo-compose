@@ -63,6 +63,20 @@ tasks.register("createModule") {
 
         val previewsFile = file("$srcAndroidDir/Previews.kt")
         previewsFile.writeText(previewsContent)
+
+        // Step 7: Update list screen files in the main module
+        // Step 7: Add the class to the screen list
+        val screenListFile = file("composeApp/src/commonMain/kotlin/tech/bam/dojo/compose/screenList.kt")
+        val screenListText = screenListFile.readText()
+
+        // Find the position of the last item in the list and insert the new screen
+        val updatedScreenListText =
+            screenListText.replace(
+                "listOf(",
+                "listOf(\n    tech.bam.dojo.$templateLowerCaseModuleName.$templateClassName(),",
+            )
+
+        screenListFile.writeText(updatedScreenListText)
     }
 }
 
