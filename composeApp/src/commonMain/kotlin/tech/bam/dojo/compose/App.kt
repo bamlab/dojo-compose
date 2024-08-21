@@ -8,7 +8,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    val firstScreenToShow = screenList.last() // To see the current dojo first
+    val firstScreenToShow = screenList.first() // To see the current dojo first
     MaterialTheme {
         Navigator(
             listOf(
