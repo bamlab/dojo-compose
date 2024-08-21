@@ -22,6 +22,6 @@ fun NavButton(
         },
         modifier = Modifier.padding(16.dp).fillMaxWidth(),
     ) {
-        Text(text = screen.key.replace('_', ' ').lowercase(), style = MaterialTheme.typography.h6)
+        Text(text = screen.key, style = MaterialTheme.typography.h6)
     }
 }
