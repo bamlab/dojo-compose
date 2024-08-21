@@ -70,6 +70,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.voyager.navigator)
 
+            // Import each project
             implementation(project(":onPressEffect"))
         }
         desktopMain.dependencies {
