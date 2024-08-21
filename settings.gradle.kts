@@ -30,3 +30,5 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":onPressEffect")
+
+include(":RevealAnimation")
