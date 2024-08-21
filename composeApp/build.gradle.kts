@@ -68,7 +68,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.compose.navigation)
+            implementation(libs.voyager.navigator)
 
             implementation(project(":onPressEffect"))
         }

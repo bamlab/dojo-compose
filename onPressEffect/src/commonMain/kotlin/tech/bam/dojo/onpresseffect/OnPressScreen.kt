@@ -25,10 +25,20 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.coroutines.flow.collectLatest
 
+class OnPressScreen : Screen {
+    override val key = "ON_PRESS_EFFECT"
+
+    @Composable
+    override fun Content() {
+        OnPressScreenComposable()
+    }
+}
+
 @Composable
-fun OnPressScreen() {
+fun OnPressScreenComposable() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,

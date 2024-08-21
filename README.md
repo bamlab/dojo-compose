@@ -35,3 +35,30 @@ You can find board of compose dojos here: https://www.notion.so/m33/Dojo-Jetpack
   - write an article if not already written
   - Share on Twitter/linkedin
   - export it to School dojo
+
+## Run
+
+### Android
+
+Use android studio to run the project on emulator or android device
+
+### iOS
+
+Open the project in Xcode and run the project on a simulator or iOS device.
+Set up the team in the Signing & Capabilities tab in Xcode if needed.
+
+### Web
+
+Run the following command in the terminal:
+
+```shell
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+```
+
+### Desktop
+
+Run the following command in the terminal:
+
+```shell
+./gradlew :composeApp:run
+```
