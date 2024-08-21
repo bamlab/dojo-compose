@@ -64,7 +64,6 @@ tasks.register("createModule") {
         val previewsFile = file("$srcAndroidDir/Previews.kt")
         previewsFile.writeText(previewsContent)
 
-        // Step 7: Update list screen files in the main module
         // Step 7: Add the class to the screen list
         val screenListFile = file("composeApp/src/commonMain/kotlin/tech/bam/dojo/compose/screenList.kt")
         val screenListText = screenListFile.readText()
@@ -77,6 +76,17 @@ tasks.register("createModule") {
             )
 
         screenListFile.writeText(updatedScreenListText)
+
+        // Step 8: Add the new module to the dependencies in the build.gradle.kts of the composeApp
+        val composeAppBuildFile = file("composeApp/build.gradle.kts")
+        val composeAppBuildText = composeAppBuildFile.readText()
+
+        val updatedComposeAppBuildText =
+            composeAppBuildText.replace(
+                "// Import each project",
+                "// Import each project\n        implementation(project(\":$templateModuleName\"))",
+            )
+        composeAppBuildFile.writeText(updatedComposeAppBuildText)
     }
 }
 
