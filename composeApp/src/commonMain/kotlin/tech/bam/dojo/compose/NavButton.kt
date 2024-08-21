@@ -8,16 +8,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.Navigator
 
 @Composable
-fun NavButton(route: String, navController: NavHostController) {
+fun NavButton(
+    screen: Screen,
+    navigator: Navigator,
+) {
     Button(
         onClick = {
-            navController.navigate(route)
+            navigator.push(screen)
         },
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
+        modifier = Modifier.padding(16.dp).fillMaxWidth(),
     ) {
-        Text(text = route.replace('_', ' ').lowercase(), style = MaterialTheme.typography.h6)
+        Text(text = screen.key.replace('_', ' ').lowercase(), style = MaterialTheme.typography.h6)
     }
 }
