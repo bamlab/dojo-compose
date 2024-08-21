@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import tech.bam.dojo.onpresseffect.OnPressScreen
 
 @Composable
 @Preview
@@ -31,16 +32,17 @@ fun MainContent() {
     NavHost(
         navController = navController,
         startDestination = Destination.HOME,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable(Destination.HOME) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(
-                    16.dp,
-                    Alignment.CenterVertically
-                )
+                verticalArrangement =
+                    Arrangement.spacedBy(
+                        16.dp,
+                        Alignment.CenterVertically,
+                    ),
             ) {
                 val greeting = remember { Greeting().greet() }
                 Text(greeting, style = MaterialTheme.typography.h6)
@@ -50,8 +52,8 @@ fun MainContent() {
             }
         }
         // DOJO: STEP 3 - Add deeplinkedComposable to the current dojo screen
-        //deeplinkedComposable(Destination.ON_PRESS_EFFECT) {
-        //    OnPressScreen()
-        //}
+        deeplinkedComposable(Destination.ON_PRESS_EFFECT) {
+            OnPressScreen()
+        }
     }
 }

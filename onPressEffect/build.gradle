@@ -1,5 +1,0 @@
-apply from: "$rootDir/gradle/baseFeature.gradle"
-
-android {
-    namespace 'bam.tech.dojo.compose.onPressEffect'
-}
