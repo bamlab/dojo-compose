@@ -17,7 +17,7 @@ tasks.register("createModule") {
     // Create a directory for the new module
     val moduleDir = file(templateModuleName)
     val srcMainDir = file("$templateModuleName/src/commonMain/kotlin/tech/bam/dojo/$templateLowerCaseModuleName")
-    val srcAndroidDir = file("$templateModuleName/src/androidMain/kotlin")
+    val srcAndroidDir = file("$templateModuleName/src/androidMain/kotlin/tech/bam/dojo/$templateLowerCaseModuleName")
 
     doLast {
         // Step 2: Create module directory and basic structure
