@@ -41,6 +41,7 @@ tasks.register("createModule") {
 
         // Step 5: Create commonMain source set with a Kotlin class
         val templateClassName = "${templateModuleName}Screen"
+        val templateSpaceName = templateModuleName.replace(Regex("([a-z])([A-Z])"), "$1 $2")
         val screenTemplateFile = file("template/template.Screen.kt")
         val screenContent =
             screenTemplateFile
@@ -48,6 +49,7 @@ tasks.register("createModule") {
                 .replace("templateModuleName", templateModuleName)
                 .replace("templateLowerCaseModuleName", templateLowerCaseModuleName)
                 .replace("templateClassName", templateClassName)
+                .replace("templateSpaceName", templateSpaceName)
 
         val commonMainFile = file("$srcMainDir/$templateClassName.kt")
         commonMainFile.writeText(screenContent)

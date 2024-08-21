@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 
 class templateClassName : Screen {
-    override val key = "templateModuleName"
+    override val key = "templateSpaceName"
 
     @Composable
     override fun Content() {

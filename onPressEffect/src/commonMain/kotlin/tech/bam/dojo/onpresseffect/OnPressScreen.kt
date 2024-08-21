@@ -31,7 +31,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlinx.coroutines.flow.collectLatest
 
 class OnPressScreen : Screen {
-    override val key = "ON_PRESS_EFFECT"
+    override val key = "On Press Effect"
 
     @Composable
     override fun Content() {
