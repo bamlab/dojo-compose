@@ -1,4 +1,4 @@
-rootProject.name = "KotlinProject"
+rootProject.name = "DojoCompose"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
