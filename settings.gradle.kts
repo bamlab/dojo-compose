@@ -32,3 +32,6 @@ include(":composeApp")
 include(":onPressEffect")
 
 include(":RevealAnimation")
+
+include(":FreetimelanceTracker")
+include(":SimpleLayout")
