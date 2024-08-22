@@ -6,3 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun RevealAnimationPreview() = RevealAnimationView()
+
+@Preview
+@Composable
+fun AnimatedVisibilityPreview() = AnimatedVisibilityView()

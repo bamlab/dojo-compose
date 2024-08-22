@@ -1,4 +1,4 @@
-package tech.bamlab.dojo.revealanimation
+package tech.bam.dojo.revealanimation
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -6,7 +6,12 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
@@ -14,8 +19,14 @@ import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.neverEqualPolicy
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -25,14 +36,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+
+class RevealAnimationScreen : Screen {
+    override val key = "Reveal Animation"
+
+    @Composable
+    override fun Content() {
+        AnimatedVisibilityView()
+    }
+}
 
 @Composable
-fun RevealAnimationScreen() {
-
+fun RevealAnimationView() {
     var resetEffect by rememberSaveable {
         mutableStateOf("", neverEqualPolicy())
     }
@@ -41,7 +60,6 @@ fun RevealAnimationScreen() {
     var rotateZ by rememberSaveable { mutableStateOf(false) }
     var scale by rememberSaveable { mutableStateOf(true) }
     var alpha by rememberSaveable { mutableStateOf(false) }
-
 
     var tween by rememberSaveable { mutableStateOf(true) }
     var durationMillis by rememberSaveable { mutableStateOf(1000) }
@@ -63,40 +81,50 @@ fun RevealAnimationScreen() {
             }
         }
 
-    var baseModifier = Modifier
-        .size(150.dp)
-        .clickable(
-            remember { MutableInteractionSource() }, null
-        ) { resetEffect += "a" }
-        .drawBehindRevealAnimation(resetEffect = resetEffect, animationSpec = animatedSpec)
-    if (scale) baseModifier =
-        baseModifier.scaleRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
-    if (rotateX) baseModifier =
-        baseModifier.rotateXRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
-    if (rotateY) baseModifier =
-        baseModifier.rotateYRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
-    if (rotateZ) baseModifier =
-        baseModifier.rotateZRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
-    if (alpha) baseModifier =
-        baseModifier.alphaRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    var baseModifier =
+        Modifier
+            .size(150.dp)
+            .clickable(
+                remember { MutableInteractionSource() },
+                null,
+            ) { resetEffect += "a" }
+            .drawBehindRevealAnimation(resetEffect = resetEffect, animationSpec = animatedSpec)
+    if (scale) {
+        baseModifier =
+            baseModifier.scaleRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    }
+    if (rotateX) {
+        baseModifier =
+            baseModifier.rotateXRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    }
+    if (rotateY) {
+        baseModifier =
+            baseModifier.rotateYRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    }
+    if (rotateZ) {
+        baseModifier =
+            baseModifier.rotateZRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    }
+    if (alpha) {
+        baseModifier =
+            baseModifier.alphaRevealAnimation(resetEffect = resetEffect, animation = animatedSpec)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             imageVector = Icons.Default.AccountCircle,
             contentDescription = null,
-            modifier = baseModifier
-
+            modifier = baseModifier,
         )
         Text("toto")
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             item {
                 Checkbox(checked = rotateZ, onCheckedChange = { rotateZ = !rotateZ })
@@ -131,14 +159,14 @@ fun RevealAnimationScreen() {
                 value = durationMillis.toFloat(),
                 onValueChange = { durationMillis = it.toInt() },
                 valueRange = 10f..5000f,
-                steps = 200
+                steps = 200,
             )
             Text(text = "delay 0 - 1000 -> $delayMillis")
             Slider(
                 value = delayMillis.toFloat(),
                 onValueChange = { delayMillis = it.toInt() },
                 valueRange = 0f..1000f,
-                steps = 200
+                steps = 200,
             )
         } else {
             Text(text = "damping 0 - 1 -> $dampingRatio")
@@ -146,69 +174,74 @@ fun RevealAnimationScreen() {
                 value = dampingRatio,
                 onValueChange = { dampingRatio = it },
                 valueRange = 0f..1f,
-                steps = 200
+                steps = 200,
             )
             Text(text = "stiffness 0 - 5000 -> $stiffness")
             Slider(
                 value = stiffness,
                 onValueChange = { stiffness = it },
                 valueRange = 0f..5000f,
-                steps = 200
+                steps = 200,
             )
         }
-
     }
-
-
 }
 
-private fun Modifier.alphaRevealAnimation(resetEffect: Any?, animation: AnimationSpec<Float>) =
-    this.genericRevealAnimation(
-        animationSpec = animation,
-        targetValue = 1f,
-        resetEffect = resetEffect
-    ) { scope, animatedValue ->
-        scope.alpha = animatedValue
-    }
+private fun Modifier.alphaRevealAnimation(
+    resetEffect: Any?,
+    animation: AnimationSpec<Float>,
+) = this.genericRevealAnimation(
+    animationSpec = animation,
+    targetValue = 1f,
+    resetEffect = resetEffect,
+) { scope, animatedValue ->
+    scope.alpha = animatedValue
+}
 
+private fun Modifier.scaleRevealAnimation(
+    resetEffect: Any?,
+    animation: AnimationSpec<Float>,
+) = this.genericRevealAnimation(
+    animationSpec = animation,
+    targetValue = 1f,
+    resetEffect = resetEffect,
+) { scope, animatedValue ->
+    scope.scaleX = animatedValue
+    scope.scaleY = animatedValue
+}
 
-private fun Modifier.scaleRevealAnimation(resetEffect: Any?, animation: AnimationSpec<Float>) =
-    this.genericRevealAnimation(
-        animationSpec = animation,
-        targetValue = 1f,
-        resetEffect = resetEffect
-    ) { scope, animatedValue ->
-        scope.scaleX = animatedValue
-        scope.scaleY = animatedValue
-    }
+private fun Modifier.rotateZRevealAnimation(
+    resetEffect: Any?,
+    animation: AnimationSpec<Float>,
+) = this.genericRevealAnimation(
+    animationSpec = animation,
+    targetValue = 360 * 4f,
+    resetEffect = resetEffect,
+) { scope, animatedValue ->
+    scope.rotationZ = animatedValue
+}
 
-private fun Modifier.rotateZRevealAnimation(resetEffect: Any?, animation: AnimationSpec<Float>) =
-    this.genericRevealAnimation(
-        animationSpec = animation,
-        targetValue = 360 * 4f,
-        resetEffect = resetEffect
-    ) { scope, animatedValue ->
-        scope.rotationZ = animatedValue
-    }
+private fun Modifier.rotateXRevealAnimation(
+    resetEffect: Any?,
+    animation: AnimationSpec<Float>,
+) = this.genericRevealAnimation(
+    animationSpec = animation,
+    targetValue = 360 * 4f,
+    resetEffect = resetEffect,
+) { scope, animatedValue ->
+    scope.rotationX = animatedValue
+}
 
-private fun Modifier.rotateXRevealAnimation(resetEffect: Any?, animation: AnimationSpec<Float>) =
-    this.genericRevealAnimation(
-        animationSpec = animation,
-        targetValue = 360 * 4f,
-        resetEffect = resetEffect
-    ) { scope, animatedValue ->
-        scope.rotationX = animatedValue
-    }
-
-private fun Modifier.rotateYRevealAnimation(resetEffect: Any?, animation: AnimationSpec<Float>) =
-    this.genericRevealAnimation(
-        animationSpec = animation,
-        targetValue = 360 * 4f,
-        resetEffect = resetEffect
-    ) { scope, animatedValue ->
-        scope.rotationY = animatedValue
-    }
-
+private fun Modifier.rotateYRevealAnimation(
+    resetEffect: Any?,
+    animation: AnimationSpec<Float>,
+) = this.genericRevealAnimation(
+    animationSpec = animation,
+    targetValue = 360 * 4f,
+    resetEffect = resetEffect,
+) { scope, animatedValue ->
+    scope.rotationY = animatedValue
+}
 
 private fun Modifier.genericRevealAnimation(
     initialValue: Float = 0f,
@@ -222,7 +255,7 @@ private fun Modifier.genericRevealAnimation(
         animatedValue.snapTo(initialValue)
         animatedValue.animateTo(
             targetValue = targetValue,
-            animationSpec = animationSpec
+            animationSpec = animationSpec,
         )
     }
 
@@ -242,7 +275,7 @@ private fun Modifier.drawBehindRevealAnimation(
         animatedValue.snapTo(initialValue)
         animatedValue.animateTo(
             targetValue = targetValue,
-            animationSpec = animationSpec
+            animationSpec = animationSpec,
         )
     }
 
@@ -253,8 +286,7 @@ private fun Modifier.drawBehindRevealAnimation(
         .onGloballyPositioned {
             center = it.size.center
             width = it.size.width
-        }
-        .drawBehind {
+        }.drawBehind {
             val progression = animatedValue.value / targetValue
             drawCircle(
                 center = Offset(center.x.toFloat(), center.y.toFloat()),
@@ -263,10 +295,4 @@ private fun Modifier.drawBehindRevealAnimation(
                 alpha = (1f - progression).coerceIn(0F, 1F),
             )
         }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun RevealAnimationScreenPreview() {
-    RevealAnimationScreen()
 }
