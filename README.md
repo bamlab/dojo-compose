@@ -12,19 +12,17 @@ You can find board of compose dojos here: https://www.notion.so/m33/Dojo-Jetpack
 ./gradlew createModule -PmoduleNameInCamelCase=MyNewModule
 ```
 
-2. Add your screen to the
-   file [screenList.kt](composeApp%2Fsrc%2FcommonMain%2Fkotlin%2Ftech%2Fbam%2Fdojo%2Fcompose%2FscreenList.kt)
-3. [optional] prepare some code in the module
-4. Check it builds then push the code on main branch 
-5. [optional] On a other branch put expected result/ help / partial result 
-6. Let's train !
+2. [optional] prepare some code in the module
+3. Check it builds then push the code on main branch
+4. [optional] On a other branch put expected result/ help / partial result
+5. Let's train !
 
 ## When dojo workshop is finished
 
 - add a readme containing GIF of the result in the module
 - push the result on the main branch
 - if valuable
-    - show to design team / interesed people in BAM
+    - show to design team / interested people in BAM
     - write an article if not already written
     - Share on Twitter/linkedin
     - export it to School dojo
