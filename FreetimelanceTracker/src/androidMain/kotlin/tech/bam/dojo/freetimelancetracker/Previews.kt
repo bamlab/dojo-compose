@@ -37,7 +37,7 @@ internal fun CardsPreview() =
         ) {
             AvatarCard(Modifier.height(100.dp))
             ContactCard(Modifier.size(100.dp, 200.dp))
-            PremiumButton(Modifier.fillMaxWidth())
+            PremiumButton(Modifier.fillMaxWidth()) {}
         }
     }
 
@@ -48,19 +48,23 @@ private fun BackgroundView() {
     ) {
         Box(
             modifier =
-                Modifier
-                    .background(FreetimelanceTrackerColors.purple)
-                    .blur(FreetimelanceTrackerDimens.backgroundBlur)
-                    .fillMaxSize(),
+            Modifier
+                .background(FreetimelanceTrackerColors.purple)
+                .blur(FreetimelanceTrackerDimens.backgroundBlur)
+                .fillMaxSize(),
             contentAlignment = Alignment.Center,
         ) {
             Box(
                 modifier =
-                    Modifier
-                        .background(FreetimelanceTrackerColors.yellow)
-                        .size(100.dp),
+                Modifier
+                    .background(FreetimelanceTrackerColors.yellow)
+                    .size(100.dp),
             )
         }
         NoiseTexture()
     }
 }
+
+@Preview
+@Composable
+private fun PremiumButtonPreview() = PremiumButton(Modifier.fillMaxWidth()) {}
