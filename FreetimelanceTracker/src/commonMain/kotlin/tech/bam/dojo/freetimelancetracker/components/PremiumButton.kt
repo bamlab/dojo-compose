@@ -1,22 +1,31 @@
 package tech.bam.dojo.freetimelancetracker.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
 
 @Composable
-fun PremiumButton(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.background(FreetimelanceTrackerColors.white),
-        contentAlignment = Alignment.Center,
+fun PremiumButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
+        onClick = onClick,
+        colors =
+            ButtonDefaults.buttonColors(
+                backgroundColor = FreetimelanceTrackerColors.yellow,
+                contentColor = FreetimelanceTrackerColors.purpleDark,
+            ),
     ) {
         Text(
-            text = "Premium Fake Button",
-            color = FreetimelanceTrackerColors.purpleDark,
+            text = "🔥 Passer Premium 🔥",
         )
     }
 }
