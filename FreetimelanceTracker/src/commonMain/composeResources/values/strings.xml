@@ -1,0 +1,13 @@
+<resources>
+    <string name="avatar_name_fake_value">Marguerite Duras</string>
+    <string name="avatar_title_fake_value">Product Designer</string>
+    <string name="avatar_age_fake_value">30 ans</string>
+    <string name="contact_label">Contact</string>
+    <string name="contact_website_label">Site Web</string>
+    <string name="contact_website_fake_value">www.mduras.com</string>
+    <string name="contact_email_label">Email</string>
+    <string name="contact_email_fake_value">mduras@gmail.com</string>
+    <string name="contact_phone_label">Téléphone</string>
+    <string name="contact_phone_fake_value">06.01.23.45.67</string>
+    <string name="contact_membership_duration_fake_value">Membre depuis mars 2022</string>
+</resources>

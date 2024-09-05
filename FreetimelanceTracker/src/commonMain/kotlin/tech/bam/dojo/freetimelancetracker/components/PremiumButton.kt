@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import tech.bam.dojo.freetimelancetracker.text.FreetimelanceTrackerStrings
 import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
 
 @Composable
@@ -25,7 +26,7 @@ fun PremiumButton(
             ),
     ) {
         Text(
-            text = "🔥 Passer Premium 🔥",
+            text = FreetimelanceTrackerStrings.premium_button_label,
         )
     }
 }
