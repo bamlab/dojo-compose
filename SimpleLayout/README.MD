@@ -34,6 +34,7 @@ https://www.figma.com/design/lt8PMrXreI87pmJPkKhcHl/DOJO-UI---For-Dev?node-id=1-
 
 - Utiliser Coil
 - border en gradient
+- utiliser fleet et avoir des previews qui fonctionnent dans le code common
 
 # Aide
 
