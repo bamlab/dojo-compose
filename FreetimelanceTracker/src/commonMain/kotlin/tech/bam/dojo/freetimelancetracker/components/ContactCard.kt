@@ -36,9 +36,6 @@ fun ContactCard(modifier: Modifier = Modifier) {
                     .padding(16.dp)
                     .fillMaxWidth(),
         ) {
-            Text(
-                text = FreetimelanceTrackerStrings.contact_label,
-            )
             Icon(
                 imageVector = Icons.Default.Person, // TODO change icon
                 contentDescription = "Contact",
