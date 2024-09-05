@@ -79,7 +79,10 @@ internal fun CardsPreview() =
         ) {
             AvatarCard(Modifier.height(100.dp))
             ContactCard(Modifier.size(100.dp, 200.dp))
-            PremiumButton(Modifier.fillMaxWidth()) {}
+            PremiumButton(
+                Modifier
+                    .fillMaxWidth()
+                    .height(62.dp)) {}
         }
     }
 
@@ -109,4 +112,8 @@ private fun BackgroundView() {
 
 @Preview
 @Composable
-private fun PremiumButtonPreview() = PremiumButton(Modifier.fillMaxWidth()) {}
+private fun PremiumButtonPreview() = PremiumButton(
+    Modifier
+        .fillMaxWidth()
+        .height(62.dp)
+) {}
