@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
+    alias(libs.plugins.kotlinter) apply false
 }
 
 // How to invoke this task
@@ -77,7 +78,7 @@ tasks.register("createModule") {
         val updatedScreenListText =
             screenListText.replace(
                 "listOf(",
-                "listOf(\n    tech.bam.dojo.$templateLowerCaseModuleName.$templateClassName(),",
+                "listOf(\n    tech.bam.dojo.$templateLowerCaseModuleName.$templateClassName(),"
             )
 
         screenListFile.writeText(updatedScreenListText)
@@ -89,7 +90,7 @@ tasks.register("createModule") {
         val updatedComposeAppBuildText =
             composeAppBuildText.replace(
                 "// Import each project",
-                "// Import each project\n        implementation(project(\":$templateModuleName\"))",
+                "// Import each project\n        implementation(project(\":$templateModuleName\"))"
             )
         composeAppBuildFile.writeText(updatedComposeAppBuildText)
     }
