@@ -82,7 +82,10 @@ internal fun CardsPreview() =
             PremiumButton(
                 Modifier
                     .fillMaxWidth()
-                    .height(62.dp)) {}
+                    .height(62.dp),
+                {},
+                state.isPremium
+            )
         }
     }
 
@@ -115,5 +118,7 @@ private fun BackgroundView() {
 private fun PremiumButtonPreview() = PremiumButton(
     Modifier
         .fillMaxWidth()
-        .height(62.dp)
-) {}
+        .height(62.dp),
+    {},
+    state.isPremium
+)
