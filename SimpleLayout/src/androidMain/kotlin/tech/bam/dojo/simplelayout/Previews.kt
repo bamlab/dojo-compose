@@ -5,4 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun SimpleLayoutPreview() = SimpleLayoutView()
+fun SimpleLayoutPreview() = SimpleLayoutView(
+    state = SimpleLayoutUiState.empty(),
+    events = SimpleLayoutEvents.previewDefault()
+)
