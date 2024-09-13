@@ -27,7 +27,8 @@ class SimpleLayoutScreen : Screen {
         SimpleLayoutView(
             state = viewModel.uiState.collectAsState().value,
             events = SimpleLayoutEvents(
-                onPremiumButtonClick = viewModel::onPremiumButtonClick
+                onPremiumButtonClick = viewModel::onPremiumButtonClick,
+                onEditButtonClick = viewModel::onEditButtonClick
             )
         )
     }
@@ -47,7 +48,11 @@ fun SimpleLayoutView(
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         AvatarCard(Modifier.fillMaxWidth())
-        ContactCard(Modifier.fillMaxWidth())
+        ContactCard(
+            modifier = Modifier.fillMaxWidth(),
+            isInEditionMode = state.isInEditionMode,
+            onEditButtonClick = events.onEditButtonClick
+        )
         PremiumButton(
             modifier = Modifier.fillMaxWidth().height(62.dp),
             onClick = events.onPremiumButtonClick,

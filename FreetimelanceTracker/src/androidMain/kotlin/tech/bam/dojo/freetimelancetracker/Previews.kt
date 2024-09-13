@@ -78,13 +78,13 @@ internal fun CardsPreview() =
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AvatarCard(Modifier.height(100.dp))
-            ContactCard(Modifier.size(100.dp, 200.dp))
+            ContactCard(Modifier.size(100.dp, 200.dp), false, {})
             PremiumButton(
                 Modifier
                     .fillMaxWidth()
                     .height(62.dp),
                 {},
-                state.isPremium
+                false
             )
         }
     }
@@ -120,5 +120,5 @@ private fun PremiumButtonPreview() = PremiumButton(
         .fillMaxWidth()
         .height(62.dp),
     {},
-    state.isPremium
+    false
 )
