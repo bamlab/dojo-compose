@@ -24,5 +24,6 @@ class SimpleLayoutViewModel(
     )
 
     fun onPremiumButtonClick() {
+        repository.setPremium()
     }
 }
