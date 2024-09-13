@@ -14,5 +14,5 @@ object FreetimelanceTrackerStrings {
     const val contact_phone_label = "Téléphone"
     const val contact_phone_fake_value = "06.01.23.45.67"
     const val contact_membership_duration_fake_value = "Membre depuis mars 2022"
-    const val premium_button_label = "🔥 Passer Premium 🔥"
+    const val premium_Repository_button_label = "🔥 Passer PremiumRepository 🔥"
 }

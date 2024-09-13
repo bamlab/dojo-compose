@@ -1,7 +1,6 @@
 package tech.bam.dojo.freetimelancetracker.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -28,7 +27,7 @@ fun PremiumButton(
         border = BorderStroke(1.dp, FreetimelanceTrackerColors.white)
     ) {
         Text(
-            text = FreetimelanceTrackerStrings.premium_button_label
+            text = FreetimelanceTrackerStrings.premium_Repository_button_label
         )
     }
 }

@@ -21,22 +21,31 @@ import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
 
 class SimpleLayoutScreen : Screen {
     override val key = "Simple Layout"
+    private val viewModel = SimpleLayoutViewModel()
 
     @Composable
     override fun Content() {
-        SimpleLayoutView()
+        SimpleLayoutView(
+            state = SimpleLayoutUiState.empty(), // TODO plug to VM
+            events = SimpleLayoutEvents(
+                onPremiumButtonClick = {} // TODO plug to VM
+            )
+        )
     }
 }
 
 @Composable
-fun SimpleLayoutView() {
+fun SimpleLayoutView(
+    state: SimpleLayoutUiState,
+    events: SimpleLayoutEvents
+) {
     Column(
         modifier = Modifier
             .background(FreetimelanceTrackerColors.purple)
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         AvatarCard(Modifier.fillMaxWidth())
         ContactCard(Modifier.fillMaxWidth())
