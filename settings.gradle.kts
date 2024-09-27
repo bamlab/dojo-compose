@@ -35,3 +35,5 @@ include(":RevealAnimation")
 
 include(":FreetimelanceTracker")
 include(":SimpleLayout")
+
+include(":ShaderBackground")
