@@ -21,10 +21,5 @@ class ShaderBackgroundScreen : Screen {
 
 @Composable
 fun ShaderBackgroundView() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text("Hello, World!")
-    }
+    PlatformShaderView()
 }
