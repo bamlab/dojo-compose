@@ -14,19 +14,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 actual fun PlatformShaderView() {
-    Box(
-        Modifier
-            .fillMaxSize()
-            .graphicsLayer {
-                renderEffect =
-                    RenderEffect
-                        .createRuntimeShaderEffect(
-                            HighlightEffect,
-                            "inputTexture",
-                        )
-                        .asComposeRenderEffect()
-            },
-    )
+    Highlight()
 }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
