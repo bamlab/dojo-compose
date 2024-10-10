@@ -29,12 +29,14 @@ fun Modifier.shaderBrush(
             val shaderUniformProvider =
                 remember { ShaderUniformProviderImpl(runtimeShaderBuilder) }
             val brush =
-                ShaderBrush(
-                    runtimeShaderBuilder
-                        .apply {
-                            uniformsBlock?.invoke(shaderUniformProvider)
-                        },
-                )
+                remember {
+                    ShaderBrush(
+                        runtimeShaderBuilder
+                            .apply {
+                                uniformsBlock?.invoke(shaderUniformProvider)
+                            },
+                    )
+                }
             val time: Float by produceDrawLoopCounter(speed)
             this then
                 drawWithCache {

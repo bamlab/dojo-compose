@@ -13,6 +13,7 @@ import org.jetbrains.skia.ImageFilter
 import org.jetbrains.skia.RuntimeEffect
 import org.jetbrains.skia.RuntimeShaderBuilder
 
+// FIXME: not working. missing image filter ?
 fun Modifier.shaderBrush(
     shader: String,
     speed: Float = 1f,
@@ -29,12 +30,14 @@ fun Modifier.shaderBrush(
             val shaderUniformProvider =
                 remember { ShaderUniformProviderImpl(runtimeShaderBuilder) }
             val brush =
-                ShaderBrush(
-                    runtimeShaderBuilder
-                        .apply {
-                            uniformsBlock?.invoke(shaderUniformProvider)
-                        }.makeShader(),
-                )
+                remember {
+                    ShaderBrush(
+                        runtimeShaderBuilder
+                            .apply {
+                                uniformsBlock?.invoke(shaderUniformProvider)
+                            }.makeShader(),
+                    )
+                }
             val time: Float by produceDrawLoopCounter(speed)
             this then
                 drawWithCache {
