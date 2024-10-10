@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.tooling.preview.Preview
 import tech.bam.dojo.shaderbackground.SketchWithCache
 import tech.bam.dojo.shaderbackground.shaders.GradientShader
+import tech.bam.dojo.shaderbackground.shaders.GradientShaderNoColorParameter
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -44,6 +45,28 @@ fun GradientShaderView(modifier: Modifier = Modifier) {
                 this.size.height,
             )
             GradientShader.setFloatUniform("iTime", time)
+            onDrawBehind {
+                drawRect(brush)
+            }
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun GradientShaderNoColorParamView(modifier: Modifier = Modifier) {
+    val brush = remember { ShaderBrush(GradientShaderNoColorParameter) }
+    Box(modifier = modifier.fillMaxSize()) {
+        SketchWithCache(
+            speed = 1f,
+            modifier = Modifier.fillMaxSize(),
+        ) { time ->
+            GradientShaderNoColorParameter.setFloatUniform(
+                "iResolution",
+                this.size.width,
+                this.size.height,
+            )
+            GradientShaderNoColorParameter.setFloatUniform("iTime", time)
             onDrawBehind {
                 drawRect(brush)
             }
