@@ -10,7 +10,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.tooling.preview.Preview
+import tech.bam.dojo.shaderbackground.GradientShaderNoColorParameterString
 import tech.bam.dojo.shaderbackground.SketchWithCache
+import tech.bam.dojo.shaderbackground.shader
+import tech.bam.dojo.shaderbackground.shaderBrush
 import tech.bam.dojo.shaderbackground.shaders.GradientShader
 import tech.bam.dojo.shaderbackground.shaders.GradientShaderNoColorParameter
 
@@ -73,6 +76,39 @@ fun GradientShaderNoColorParamView(modifier: Modifier = Modifier) {
         }
     }
 }
+
+// FIXME Not working don't know why
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun GradientShaderModifierView(modifier: Modifier = Modifier) {
+    Box(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .gradientShader(),
+    )
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+fun GradientShaderBrush(modifier: Modifier = Modifier) {
+    Box(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .shaderBrush(GradientShaderNoColorParameterString) {},
+    )
+}
+
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+private fun Modifier.gradientShader(): Modifier =
+    this then
+        shader(
+            shader = GradientShaderNoColorParameterString,
+            uniformsBlock = {
+                uniform("iTime", 0f)
+                },
+            )
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Preview

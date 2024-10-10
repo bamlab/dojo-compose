@@ -1,26 +1,14 @@
-package tech.bam.dojo.shaderbackground.shaders
+package tech.bam.dojo.shaderbackground
 
-import android.graphics.RuntimeShader
-import android.os.Build
-import androidx.annotation.RequiresApi
-import tech.bam.dojo.shaderbackground.GradientShaderNoColorParameterString
-
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-val GradientShaderNoColorParameter =
-    RuntimeShader(GradientShaderNoColorParameterString)
-
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-val GradientShader =
-    RuntimeShader(
-        """
-layout(color) uniform half4 color1a;
-layout(color) uniform half4 color1b;
-layout(color) uniform half4 color2a;
-layout(color) uniform half4 color2b;
-
+val GradientShaderNoColorParameterString = """
 uniform float2 iResolution;              // viewport resolution (in pixels)
 uniform float iTime;                     // shader playback time (in seconds)
 
+// Define the hardcoded colors
+const half4 color1a = half4(0.086, 0.196, 0.357, 1.0);  // #16325B
+const half4 color1b = half4(0.133, 0.482, 0.580, 1.0);  // #227B94
+const half4 color2a = half4(0.471, 0.718, 0.816, 1.0);  // #78B7D0
+const half4 color2b = half4(1.0, 0.863, 0.498, 1.0);    // #FFDC7F
 
 // Function to replace the `#define` macro
 float S(float a, float b, float t) {
@@ -66,7 +54,7 @@ half4 main(float2 fragCoord)
     float degree = noise(float2(iTime * 0.1, tuv.x * tuv.y));
 
     tuv.y *= 1.0 / ratio;
-    tuv *= Rot(radians((degree - 0.5) * 720.0 + 180.0));
+    tuv = Rot(radians((degree - 0.5) * 720.0 + 180.0)) * tuv; // Changed multiplication order
     tuv.y *= ratio;
 
     // Wave warp with sin
@@ -77,8 +65,8 @@ half4 main(float2 fragCoord)
     tuv.y += sin(tuv.x * frequency * 1.5 + speed) / (amplitude * 0.5);
 
     // Draw the image
-    float3 layer1 = mix(color1a.rgb, color1b.rgb, S(-0.3, 0.2, (tuv * Rot(radians(-5.0))).x));
-    float3 layer2 = mix(color2a.rgb, color2b.rgb, S(-0.3, 0.2, (tuv * Rot(radians(-5.0))).x));
+    float3 layer1 = mix(color1a.rgb, color1b.rgb, S(-0.3, 0.2, (Rot(radians(-5.0)) * tuv).x)); // Changed order
+    float3 layer2 = mix(color2a.rgb, color2b.rgb, S(-0.3, 0.2, (Rot(radians(-5.0)) * tuv).x)); // Changed order
 
     float3 finalComp = mix(layer1, layer2, S(0.5, -0.3, tuv.y));
 
@@ -87,5 +75,4 @@ half4 main(float2 fragCoord)
     return half4(col, 1.0);
 }
 
-""",
-    )
+"""
