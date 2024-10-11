@@ -37,3 +37,5 @@ include(":FreetimelanceTracker")
 include(":SimpleLayout")
 
 include(":ShaderBackground")
+
+include(":NavBar")
