@@ -2,13 +2,17 @@ package tech.bam.dojo.navbar
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
 
 class NavBarScreen : Screen {
     override val key = "Nav Bar"
@@ -25,11 +29,21 @@ fun NavBarView() {
         Scaffold(
             content = { CurrentTab() },
             bottomBar = {
-                Row {
-                    BottomNavItem(HomeTab, navigator, Modifier.padding(16.dp))
-                    BottomNavItem(AnalyzeTab, navigator, Modifier.padding(16.dp))
-                    BottomNavItem(TasksTab, navigator, Modifier.padding(16.dp))
-                    BottomNavItem(ProfileTab, navigator, Modifier.padding(16.dp))
+                NavigationBar(
+                    modifier =
+                        Modifier.clip(
+                            RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 16.dp,
+                            ),
+                        ),
+                    containerColor = FreetimelanceTrackerColors.purpleLight.copy(alpha = 0.4f),
+                    contentColor = FreetimelanceTrackerColors.purpleDark,
+                ) {
+                    BottomNavItem(HomeTab, navigator)
+                    BottomNavItem(AnalyzeTab, navigator)
+                    BottomNavItem(TasksTab, navigator)
+                    BottomNavItem(ProfileTab, navigator)
                 }
             },
         )

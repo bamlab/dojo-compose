@@ -64,6 +64,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.navigator.tab)
+            implementation(project(":FreetimelanceTracker"))
         }
     }
 }
