@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 fun Modifier.shaderBrush(
     shader: String,
     speed: Float = 1f,
-    uniformsBlock: (ShaderUniformProvider.() -> Unit)?,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
         composed {
@@ -34,7 +34,7 @@ fun Modifier.shaderBrush(
                         runtimeShaderBuilder
                             .apply {
                                 uniformsBlock?.invoke(shaderUniformProvider)
-                            },
+                            }
                     )
                 }
             val time: Float by produceDrawLoopCounter(speed)
@@ -51,7 +51,7 @@ fun Modifier.shaderBrush(
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 actual fun Modifier.shader(
     shader: String,
-    uniformsBlock: (ShaderUniformProvider.() -> Unit)?,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
         composed {
@@ -65,7 +65,7 @@ actual fun Modifier.shader(
                             runtimeShader.apply {
                                 uniformsBlock?.invoke(shaderUniformProvider)
                                 shaderUniformProvider.updateResolution(size)
-                            },
+                            }
                         ).asComposeRenderEffect()
             }
         }
@@ -74,7 +74,7 @@ actual fun Modifier.shader(
 actual fun Modifier.runtimeShader(
     shader: String,
     uniformName: String,
-    uniformsBlock: (ShaderUniformProvider.() -> Unit)?,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
         composed {
@@ -89,14 +89,14 @@ actual fun Modifier.runtimeShader(
                                 uniformsBlock?.invoke(shaderUniformProvider)
                                 shaderUniformProvider.updateResolution(size)
                             },
-                            uniformName,
+                            uniformName
                         ).asComposeRenderEffect()
             }
         }
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 private class ShaderUniformProviderImpl(
-    private val runtimeShader: RuntimeShader,
+    private val runtimeShader: RuntimeShader
 ) : ShaderUniformProvider {
     fun updateResolution(size: Size) {
         uniform("iResolution", size.width, size.height)
@@ -104,14 +104,14 @@ private class ShaderUniformProviderImpl(
 
     override fun uniform(
         name: String,
-        value: Int,
+        value: Int
     ) {
         runtimeShader.setIntUniform(name, value)
     }
 
     override fun uniform(
         name: String,
-        value: Float,
+        value: Float
     ) {
         runtimeShader.setFloatUniform(name, value)
     }
@@ -119,7 +119,7 @@ private class ShaderUniformProviderImpl(
     override fun uniform(
         name: String,
         value1: Float,
-        value2: Float,
+        value2: Float
     ) {
         runtimeShader.setFloatUniform(name, value1, value2)
     }

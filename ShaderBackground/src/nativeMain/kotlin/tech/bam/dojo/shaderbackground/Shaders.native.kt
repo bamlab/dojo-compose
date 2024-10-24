@@ -1,25 +1,63 @@
 package tech.bam.dojo.shaderbackground
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import org.jetbrains.skia.ImageFilter
 import org.jetbrains.skia.RuntimeEffect
 import org.jetbrains.skia.RuntimeShaderBuilder
 
-actual fun Modifier.shader(
+fun Modifier.shaderBrush(
     shader: String,
-    uniformsBlock: (ShaderUniformProvider.() -> Unit)?,
+    speed: Float = 1f,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
         composed {
             val runtimeShaderBuilder =
                 remember {
                     RuntimeShaderBuilder(
-                        effect = RuntimeEffect.makeForShader(shader),
+                        effect = RuntimeEffect.makeForShader(shader)
+                    )
+                }
+            val shaderUniformProvider =
+                remember { ShaderUniformProviderImpl(runtimeShaderBuilder) }
+            var brush: ShaderBrush? = null
+            val time: Float by produceDrawLoopCounter(speed)
+            this then
+                drawWithCache {
+                    if (brush == null) {
+                        brush = ShaderBrush(
+                            runtimeShaderBuilder
+                                .apply {
+                                    uniformsBlock?.invoke(shaderUniformProvider)
+                                    shaderUniformProvider.updateResolution(size)
+                                }.makeShader()
+                        )
+                    }
+                    onDrawBehind {
+                        shaderUniformProvider.uniform("iTime", time)
+                        drawRect(brush = brush!!)
+                    }
+                }
+        }
+
+actual fun Modifier.shader(
+    shader: String,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
+): Modifier =
+    this then
+        composed {
+            val runtimeShaderBuilder =
+                remember {
+                    RuntimeShaderBuilder(
+                        effect = RuntimeEffect.makeForShader(shader)
                     )
                 }
             val shaderUniformProvider =
@@ -30,12 +68,12 @@ actual fun Modifier.shader(
                     ImageFilter
                         .makeShader(
                             shader =
-                                runtimeShaderBuilder
-                                    .apply {
-                                        uniformsBlock?.invoke(shaderUniformProvider)
-                                        shaderUniformProvider.updateResolution(size)
-                                    }.makeShader(),
-                            crop = null,
+                            runtimeShaderBuilder
+                                .apply {
+                                    uniformsBlock?.invoke(shaderUniformProvider)
+                                    shaderUniformProvider.updateResolution(size)
+                                }.makeShader(),
+                            crop = null
                         ).asComposeRenderEffect()
             }
         }
@@ -43,14 +81,14 @@ actual fun Modifier.shader(
 actual fun Modifier.runtimeShader(
     shader: String,
     uniformName: String,
-    uniformsBlock: (ShaderUniformProvider.() -> Unit)?,
+    uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
         composed {
             val runtimeShaderBuilder =
                 remember {
                     RuntimeShaderBuilder(
-                        effect = RuntimeEffect.makeForShader(shader),
+                        effect = RuntimeEffect.makeForShader(shader)
                     )
                 }
             val shaderUniformProvider =
@@ -61,18 +99,18 @@ actual fun Modifier.runtimeShader(
                     ImageFilter
                         .makeRuntimeShader(
                             runtimeShaderBuilder =
-                                runtimeShaderBuilder.apply {
-                                    uniformsBlock?.invoke(shaderUniformProvider)
-                                    shaderUniformProvider.updateResolution(size)
-                                },
+                            runtimeShaderBuilder.apply {
+                                uniformsBlock?.invoke(shaderUniformProvider)
+                                shaderUniformProvider.updateResolution(size)
+                            },
                             shaderName = uniformName,
-                            input = null,
+                            input = null
                         ).asComposeRenderEffect()
             }
         }
 
 private class ShaderUniformProviderImpl(
-    private val runtimeShaderBuilder: RuntimeShaderBuilder,
+    private val runtimeShaderBuilder: RuntimeShaderBuilder
 ) : ShaderUniformProvider {
     fun updateResolution(size: Size) {
         uniform("iResolution", size.width, size.height)
@@ -80,14 +118,14 @@ private class ShaderUniformProviderImpl(
 
     override fun uniform(
         name: String,
-        value: Int,
+        value: Int
     ) {
         runtimeShaderBuilder.uniform(name, value)
     }
 
     override fun uniform(
         name: String,
-        value: Float,
+        value: Float
     ) {
         runtimeShaderBuilder.uniform(name, value)
     }
@@ -95,7 +133,7 @@ private class ShaderUniformProviderImpl(
     override fun uniform(
         name: String,
         value1: Float,
-        value2: Float,
+        value2: Float
     ) {
         runtimeShaderBuilder.uniform(name, value1, value2)
     }

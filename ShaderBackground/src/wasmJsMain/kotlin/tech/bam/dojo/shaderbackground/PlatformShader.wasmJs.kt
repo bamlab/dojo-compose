@@ -11,7 +11,7 @@ import org.jetbrains.skia.RuntimeShaderBuilder
 
 @Composable
 actual fun PlatformShaderView() {
-    GradientSketch()
+    GradientShaderBrush()
 }
 
 @Composable
@@ -24,24 +24,24 @@ fun GradientSketch(modifier: Modifier = Modifier) {
     val runtimeShaderBuilder =
         remember {
             RuntimeShaderBuilder(
-                effect = RuntimeEffect.makeForShader(GradientShaderNoColorParameterString),
+                effect = RuntimeEffect.makeForShader(GradientShaderNoColorParameterString)
             )
         }
     val brush =
         remember {
             ShaderBrush(
-                runtimeShaderBuilder.makeShader(),
+                runtimeShaderBuilder.makeShader()
             )
         }
     Box(modifier = modifier.fillMaxSize()) {
         SketchWithCache(
             speed = 1f,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
         ) { time ->
             runtimeShaderBuilder.uniform(
                 "iResolution",
                 this.size.width,
-                this.size.height,
+                this.size.height
             )
             runtimeShaderBuilder.uniform("iTime", time)
             onDrawBehind {
