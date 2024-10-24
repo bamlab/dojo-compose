@@ -3,6 +3,7 @@ package tech.bam.dojo.home
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlin.time.Duration
 
 @Preview

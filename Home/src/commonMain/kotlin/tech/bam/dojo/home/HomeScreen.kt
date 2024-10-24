@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Pause
 import androidx.compose.material.icons.outlined.PlayArrow
@@ -70,11 +68,7 @@ fun HomeView(
             )
         } else {
             time.toComponents { minutes, seconds, nanoseconds ->
-                Text(
-                    text = "${minutes.toTime()}:${seconds.toTime()}:${nanoseconds.toTime()}",
-                    color = FreetimelanceTrackerColors.white,
-                    style = MaterialTheme.typography.h2
-                )
+                ChronoView(minutes, seconds, nanoseconds)
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(32.dp),
@@ -107,6 +101,3 @@ fun HomeView(
         }
     }
 }
-
-private fun Long.toTime(): String = if (this < 10) "0$this" else this.toString().take(2)
-private fun Int.toTime() = this.toLong().toTime()
