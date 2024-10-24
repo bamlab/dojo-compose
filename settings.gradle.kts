@@ -39,3 +39,5 @@ include(":SimpleLayout")
 include(":ShaderBackground")
 
 include(":NavBar")
+
+include(":Home")

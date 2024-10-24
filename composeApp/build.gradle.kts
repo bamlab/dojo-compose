@@ -71,6 +71,7 @@ kotlin {
             implementation(libs.voyager.navigator)
 
             // Import each project
+            implementation(project(":Home"))
             implementation(project(":NavBar"))
             implementation(project(":ShaderBackground"))
             implementation(project(":SimpleLayout"))

@@ -7,4 +7,5 @@ object FreetimelanceTrackerDimens {
     const val cardOpacity = 0.2f
     val backgroundBlur = 15.dp
     val cardBlur = 15.dp
+    val iconSize = 32.dp
 }

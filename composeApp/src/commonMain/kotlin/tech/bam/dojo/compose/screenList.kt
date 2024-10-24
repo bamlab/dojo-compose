@@ -2,6 +2,8 @@ package tech.bam.dojo.compose
 
 val screenList =
     listOf(
+        tech.bam.dojo.home
+            .HomeScreen(),
         tech.bam.dojo.navbar
             .NavBarScreen(),
         tech.bam.dojo.shaderbackground
