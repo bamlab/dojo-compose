@@ -43,7 +43,7 @@ kotlin {
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64(),
+        iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Home"
@@ -63,6 +63,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.voyager.navigator)
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(project(":FreetimelanceTracker"))
         }
     }
