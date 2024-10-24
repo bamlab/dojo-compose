@@ -24,6 +24,7 @@ fun FreelanceButton(
     Button(
         onClick = onClick,
         shape = FreetimelanceTrackerDimens.roundedShape,
+        elevation = ButtonDefaults.elevation(defaultElevation = 0.dp, pressedElevation = 0.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
             contentColor = iconColor

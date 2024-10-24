@@ -36,7 +36,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             while (chronoState.value == ChronoState.RUNNING) {
                 delay(10L)
-                time.value.plus(10.milliseconds)
+                time.value = time.value.plus(10.milliseconds)
             }
         }
     }
