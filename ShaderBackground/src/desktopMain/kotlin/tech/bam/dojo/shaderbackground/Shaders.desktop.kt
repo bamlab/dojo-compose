@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
@@ -13,9 +14,9 @@ import org.jetbrains.skia.ImageFilter
 import org.jetbrains.skia.RuntimeEffect
 import org.jetbrains.skia.RuntimeShaderBuilder
 
-fun Modifier.shaderBrush(
+actual fun Modifier.shaderBrush(
     shader: String,
-    speed: Float = 1f,
+    speed: Float,
     uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
@@ -135,5 +136,9 @@ private class ShaderUniformProviderImpl(
         value2: Float
     ) {
         runtimeShaderBuilder.uniform(name, value1, value2)
+    }
+
+    override fun uniform(name: String, color: Color) {
+        runtimeShaderBuilder.uniform(name, color.red, color.green, color.blue, color.alpha)
     }
 }

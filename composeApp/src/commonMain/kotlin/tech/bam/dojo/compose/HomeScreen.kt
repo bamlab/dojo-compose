@@ -24,10 +24,10 @@ class HomeScreen : Screen {
             modifier = Modifier.fillMaxSize().padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement =
-                Arrangement.spacedBy(
-                    16.dp,
-                    Alignment.CenterVertically,
-                ),
+            Arrangement.spacedBy(
+                16.dp,
+                Alignment.CenterVertically
+            )
         ) {
             val greeting = remember { Greeting().greet() }
             Text(greeting, style = MaterialTheme.typography.h6)

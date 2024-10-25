@@ -23,7 +23,7 @@ internal fun ChronoView(minutes: Long, seconds: Int, nanoseconds: Int) {
             .padding(horizontal = 24.dp)
             .size(300.dp)
             .clip(CircleShape)
-            .background(FreetimelanceTrackerColors.purple.copy(alpha = 0.1f)),
+            .background(FreetimelanceTrackerColors.purple.copy(alpha = 0.5f)),
         contentAlignment = androidx.compose.ui.Alignment.Center
     ) {
         CustomCircularProgressIndicator(

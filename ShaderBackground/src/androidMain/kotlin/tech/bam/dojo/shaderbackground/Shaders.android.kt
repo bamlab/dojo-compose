@@ -10,14 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-fun Modifier.shaderBrush(
+actual fun Modifier.shaderBrush(
     shader: String,
-    speed: Float = 1f,
+    speed: Float,
     uniformsBlock: (ShaderUniformProvider.() -> Unit)?
 ): Modifier =
     this then
@@ -123,5 +124,9 @@ private class ShaderUniformProviderImpl(
         value2: Float
     ) {
         runtimeShader.setFloatUniform(name, value1, value2)
+    }
+
+    override fun uniform(name: String, color: Color) {
+        runtimeShader.setColorUniform(name, color.value.toLong())
     }
 }

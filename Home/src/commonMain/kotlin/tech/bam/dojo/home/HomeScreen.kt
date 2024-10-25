@@ -1,7 +1,7 @@
 package tech.bam.dojo.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +22,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlin.time.Duration
 import tech.bam.dojo.freetimelancetracker.components.FreelanceButton
 import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
+import tech.bam.dojo.shaderbackground.freetimeLanceTrackerBackground
 
 class HomeScreen : Screen {
     override val key = "Home"
@@ -50,53 +51,57 @@ fun HomeView(
     onPauseClick: () -> Unit,
     onStopClick: () -> Unit
 ) {
-    Column(
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(FreetimelanceTrackerColors.purpleLight)
-    ) {
-        Spacer(Modifier.height(24.dp))
-        if (chrono == ChronoState.STOPPED) {
-            FreelanceButton(
-                onClick = onPlayClick,
-                modifier = Modifier.size(92.dp),
-                icon = Icons.Outlined.PlayArrow,
-                backgroundColor = FreetimelanceTrackerColors.purpleDark,
-                iconColor = FreetimelanceTrackerColors.white
-            )
-        } else {
-            time.toComponents { minutes, seconds, nanoseconds ->
-                ChronoView(minutes, seconds, nanoseconds)
-            }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(32.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+    Box {
+        Box(
+            modifier = Modifier.fillMaxSize().freetimeLanceTrackerBackground()
+        )
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Spacer(Modifier.height(24.dp))
+            if (chrono == ChronoState.STOPPED) {
                 FreelanceButton(
-                    onClick = onResetClick,
-                    modifier = Modifier.size(72.dp),
-                    icon = Icons.Outlined.RestartAlt,
-                    backgroundColor = FreetimelanceTrackerColors.purple.copy(alpha = .6f),
+                    onClick = onPlayClick,
+                    modifier = Modifier.size(92.dp),
+                    icon = Icons.Outlined.PlayArrow,
+                    backgroundColor = FreetimelanceTrackerColors.purpleDark,
                     iconColor = FreetimelanceTrackerColors.white
                 )
-                if (chrono == ChronoState.RUNNING) {
+            } else {
+                time.toComponents { minutes, seconds, nanoseconds ->
+                    ChronoView(minutes, seconds, nanoseconds)
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(32.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     FreelanceButton(
-                        onClick = onPauseClick,
-                        modifier = Modifier.size(92.dp),
-                        icon = Icons.Outlined.Pause,
-                        backgroundColor = FreetimelanceTrackerColors.yellow,
-                        iconColor = FreetimelanceTrackerColors.purpleDark
+                        onClick = onResetClick,
+                        modifier = Modifier.size(72.dp),
+                        icon = Icons.Outlined.RestartAlt,
+                        backgroundColor = FreetimelanceTrackerColors.purple.copy(alpha = .6f),
+                        iconColor = FreetimelanceTrackerColors.white
+                    )
+                    if (chrono == ChronoState.RUNNING) {
+                        FreelanceButton(
+                            onClick = onPauseClick,
+                            modifier = Modifier.size(92.dp),
+                            icon = Icons.Outlined.Pause,
+                            backgroundColor = FreetimelanceTrackerColors.yellow,
+                            iconColor = FreetimelanceTrackerColors.purpleDark
+                        )
+                    }
+                    FreelanceButton(
+                        onClick = onStopClick,
+                        modifier = Modifier.size(72.dp),
+                        icon = Icons.Outlined.StopCircle,
+                        backgroundColor = FreetimelanceTrackerColors.purple.copy(alpha = .6f),
+                        iconColor = FreetimelanceTrackerColors.white
                     )
                 }
-                FreelanceButton(
-                    onClick = onStopClick,
-                    modifier = Modifier.size(72.dp),
-                    icon = Icons.Outlined.StopCircle,
-                    backgroundColor = FreetimelanceTrackerColors.purple.copy(alpha = .6f),
-                    iconColor = FreetimelanceTrackerColors.white
-                )
             }
         }
     }

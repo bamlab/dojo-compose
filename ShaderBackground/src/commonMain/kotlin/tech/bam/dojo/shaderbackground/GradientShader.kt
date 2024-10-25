@@ -1,18 +1,6 @@
-package tech.bam.dojo.shaderbackground.shaders
+package tech.bam.dojo.shaderbackground
 
-import android.graphics.RuntimeShader
-import android.os.Build
-import androidx.annotation.RequiresApi
-import tech.bam.dojo.shaderbackground.GradientShaderNoColorParameterString
-
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-val GradientShaderNoColorParameter =
-    RuntimeShader(GradientShaderNoColorParameterString)
-
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
-val GradientShader =
-    RuntimeShader(
-        """
+val GradientShader = """
 layout(color) uniform half4 color1a;
 layout(color) uniform half4 color1b;
 layout(color) uniform half4 color2a;
@@ -87,5 +75,4 @@ half4 main(float2 fragCoord)
     return half4(col, 1.0);
 }
 
-""",
-    )
+"""

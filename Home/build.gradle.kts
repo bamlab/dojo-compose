@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(project(":FreetimelanceTracker"))
+            implementation(project(":ShaderBackground"))
         }
     }
 }

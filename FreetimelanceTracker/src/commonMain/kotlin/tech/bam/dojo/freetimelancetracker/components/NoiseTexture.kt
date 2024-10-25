@@ -13,13 +13,13 @@ import org.jetbrains.compose.resources.painterResource
 import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerDimens
 
 @Composable
-fun NoiseTexture() {
+fun NoiseTexture(modifier: Modifier = Modifier) {
     if (!LocalInspectionMode.current) { // else it crashes previews
         Image(
             painter = painterResource(Res.drawable.noise__texture),
             contentDescription = "noise texture",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize().alpha(FreetimelanceTrackerDimens.noiseOpacity),
+            modifier = modifier.fillMaxSize().alpha(FreetimelanceTrackerDimens.noiseOpacity)
         )
     }
 }
