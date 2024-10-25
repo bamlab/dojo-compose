@@ -14,3 +14,8 @@ actual fun PlatformShaderView() {
 fun GradientShaderBrush(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize().shaderBrush(GradientShaderNoColorParameterString) {})
 }
+
+@Composable
+fun GradientRenderEffect(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize().shader(GradientShaderNoColorParameterString) {})
+}

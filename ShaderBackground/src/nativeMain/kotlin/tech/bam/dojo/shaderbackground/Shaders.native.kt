@@ -28,22 +28,19 @@ fun Modifier.shaderBrush(
                 }
             val shaderUniformProvider =
                 remember { ShaderUniformProviderImpl(runtimeShaderBuilder) }
-            var brush: ShaderBrush? = null
             val time: Float by produceDrawLoopCounter(speed)
             this then
                 drawWithCache {
-                    if (brush == null) {
-                        brush = ShaderBrush(
-                            runtimeShaderBuilder
-                                .apply {
-                                    uniformsBlock?.invoke(shaderUniformProvider)
-                                    shaderUniformProvider.updateResolution(size)
-                                }.makeShader()
-                        )
-                    }
+                    val brush = ShaderBrush(
+                        runtimeShaderBuilder
+                            .apply {
+                                uniformsBlock?.invoke(shaderUniformProvider)
+                                shaderUniformProvider.updateResolution(size)
+                                shaderUniformProvider.uniform("iTime", time)
+                            }.makeShader()
+                    )
                     onDrawBehind {
-                        shaderUniformProvider.uniform("iTime", time)
-                        drawRect(brush = brush!!)
+                        drawRect(brush = brush)
                     }
                 }
         }
@@ -62,6 +59,7 @@ actual fun Modifier.shader(
                 }
             val shaderUniformProvider =
                 remember { ShaderUniformProviderImpl(runtimeShaderBuilder) }
+            val time: Float by produceDrawLoopCounter(1f)
             graphicsLayer {
                 clip = true
                 renderEffect =
@@ -72,6 +70,7 @@ actual fun Modifier.shader(
                                 .apply {
                                     uniformsBlock?.invoke(shaderUniformProvider)
                                     shaderUniformProvider.updateResolution(size)
+                                    shaderUniformProvider.uniform("iTime", time)
                                 }.makeShader(),
                             crop = null
                         ).asComposeRenderEffect()

@@ -41,6 +41,7 @@ fun Modifier.shaderBrush(
             this then
                 drawWithCache {
                     onDrawBehind {
+                        uniformsBlock?.invoke(shaderUniformProvider)
                         shaderUniformProvider.updateResolution(size)
                         shaderUniformProvider.uniform("iTime", time)
                         drawRect(brush = brush)

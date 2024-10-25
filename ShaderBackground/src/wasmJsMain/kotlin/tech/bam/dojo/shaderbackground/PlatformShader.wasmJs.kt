@@ -11,12 +11,17 @@ import org.jetbrains.skia.RuntimeShaderBuilder
 
 @Composable
 actual fun PlatformShaderView() {
-    GradientShaderBrush()
+    GradientRenderEffect()
 }
 
 @Composable
 fun GradientShaderBrush(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize().shaderBrush(GradientShaderNoColorParameterString) {})
+}
+
+@Composable
+fun GradientRenderEffect(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize().shader(GradientShaderNoColorParameterString) {})
 }
 
 @Composable
