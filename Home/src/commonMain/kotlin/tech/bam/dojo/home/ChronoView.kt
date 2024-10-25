@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import tech.bam.dojo.freetimelancetracker.theme.FreetimelanceTrackerColors
 
@@ -41,7 +42,8 @@ internal fun ChronoView(minutes: Long, seconds: Int, nanoseconds: Int) {
         Text(
             text = "${minutes.toTime()}:${seconds.toTime()}:${nanoseconds.toTime()}",
             color = FreetimelanceTrackerColors.white,
-            style = MaterialTheme.typography.h2
+            style = MaterialTheme.typography.h3,
+            fontFamily = FontFamily.Monospace
         )
     }
 }
